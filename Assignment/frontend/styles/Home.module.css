@@ -1,0 +1,109 @@
+/* ================================
+   Enhanced TodayTasks Page Styles
+================================== */
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 40px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--foreground);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--button-secondary-border);
+}
+
+.table th {
+  background: var(--background);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status badges */
+.statusPending {
+  background: #ffe5a5;
+  color: #8a6300;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.statusDone {
+  background: #d9ffd8;
+  color: #0f7e0d;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* Primary button */
+.primaryButton {
+  background: var(--text-primary);
+  color: var(--background);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.primaryButton:hover {
+  background: var(--button-primary-hover);
+}
+
+/* Empty state */
+.emptyState {
+  width: 100%;
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+
+/* Loader animation */
+.loadingWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px;
+  gap: 12px;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: var(--text-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error box */
+.errorBox {
+  background: #ffe8e8;
+  padding: 20px;
+  border-radius: 8px;
+  color: #c10000;
+  border-left: 4px solid red;
+}
