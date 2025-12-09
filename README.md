@@ -156,7 +156,56 @@ Write **8–12 lines** describing how you would implement a Stripe Checkout flow
 - How you handle webhooks  
 - How you update the application after payment succeeds  
 
----
+To implement Stripe Checkout for an application fee, I would first insert a new row into a payment_requests table with user_id, application_id, amount, and an initial status of "pending". After inserting, I would call Stripe’s API to create a Checkout Session and include the payment_request_id inside metadata so Stripe can return it in webhooks. I would store the checkout_session_id, payment_intent_id, and the checkout_url back into the same row so the frontend can redirect the user to Stripe.
+
+A webhook (checkout.session.completed) would confirm successful payment. Inside the webhook, I would verify the Stripe signature, extract payment_request_id from metadata, and update the row to "paid". I would then update the related applications row—e.g., set stage to "payment_received" or add a timeline entry. A second webhook (payment_intent.payment_failed) would update the row to "failed". All state changes happen only through webhooks to maintain secure, tamper-proof payment status.
+
+## How to Run This Project
+
+Below are instructions for both backend (Supabase) and frontend (Next.js).
+
+🟦 Backend Setup (Supabase)
+1. Install Supabase CLI
+npm install supabase --global
+
+2. Start Supabase locally
+
+Inside /backend:
+
+supabase start
+
+3. Create .env file
+
+Inside /backend/.env:
+
+SUPABASE_URL=your-project-url
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+SUPABASE_ANON_KEY=your-anon-key
+
+4. Push database schema + RLS
+supabase db push
+
+5. Deploy Edge Function
+supabase functions deploy create-task
+
+🟩 Frontend Setup (Next.js)
+
+Inside /frontend:
+
+1. Install dependencies
+npm install
+
+2. Create .env.local
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+
+3. Run the development server
+npm run dev
+
+
+Your app will be available at:
+
+👉 http://localhost:3000/dashboard/today
 
 ## Submission
 
